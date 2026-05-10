@@ -23,7 +23,7 @@ interface ApiOptions extends Omit<RequestInit, "body"> {
 
 let refreshInFlight: Promise<string | null> | null = null;
 
-const refreshTokens = async (): Promise<string | null> => {
+export const refreshTokens = async (): Promise<string | null> => {
     if (refreshInFlight) return refreshInFlight;
 
     refreshInFlight = (async () => {

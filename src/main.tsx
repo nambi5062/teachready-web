@@ -2,8 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { App } from "@/App";
+import { startAuthRefreshScheduler } from "@/api/auth-scheduler";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "@/styles/globals.css";
+
+startAuthRefreshScheduler();
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
