@@ -6,7 +6,7 @@ export interface AuthUser {
     email: string;
     name?: string;
     is_profile_exist?: boolean;
-    subjects?: string;
+    subject?: string;
     grade?: string[];
 }
 
