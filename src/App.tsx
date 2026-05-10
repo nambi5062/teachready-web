@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router";
+import { RequireAuth } from "@/components/auth/require-auth";
+import { RequireGuest } from "@/components/auth/require-guest";
 import { ForgotPassword } from "@/pages/forgot-password";
 import { HomeScreen } from "@/pages/home-screen";
 import { Login } from "@/pages/login";
@@ -9,10 +11,16 @@ import { RouteProvider } from "@/providers/router-provider";
 export const App = () => (
     <RouteProvider>
         <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route element={<RequireAuth />}>
+                <Route path="/" element={<HomeScreen />} />
+            </Route>
+
+            <Route element={<RequireGuest />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
         </Routes>
     </RouteProvider>
