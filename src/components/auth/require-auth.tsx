@@ -1,12 +1,18 @@
 import { Navigate, Outlet } from "react-router";
+import { PreferencesModal } from "@/components/onboarding/preferences-modal";
 import { useAuth } from "@/hooks/use-auth";
 
 export const RequireAuth = () => {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, isProfileComplete } = useAuth();
 
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
 
-    return <Outlet />;
+    return (
+        <>
+            <Outlet />
+            <PreferencesModal isOpen={!isProfileComplete} />
+        </>
+    );
 };

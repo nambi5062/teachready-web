@@ -5,6 +5,9 @@ export interface AuthUser {
     id: string;
     email: string;
     name?: string;
+    is_profile_exist?: boolean;
+    subjects?: string;
+    grade?: string[];
 }
 
 export interface AuthSession {
@@ -20,6 +23,7 @@ interface AuthState {
 
     setSession: (session: AuthSession) => void;
     setTokens: (tokens: { accessToken: string; refreshToken: string }) => void;
+    setUser: (user: AuthUser) => void;
     clear: () => void;
 }
 
@@ -35,6 +39,8 @@ export const useAuthStore = create<AuthState>()(
 
             setTokens: ({ accessToken, refreshToken }) =>
                 set({ accessToken, refreshToken }),
+
+            setUser: (user) => set({ user }),
 
             clear: () => set({ accessToken: null, refreshToken: null, user: null }),
         }),

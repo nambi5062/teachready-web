@@ -6,9 +6,11 @@ interface UseAuthReturn {
     user: AuthUser | null;
     accessToken: string | null;
     isAuthenticated: boolean;
+    isProfileComplete: boolean;
     login: (email: string, password: string) => Promise<void>;
     signup: (name: string, email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
+    setUser: (user: AuthUser) => void;
 }
 
 export const useAuth = (): UseAuthReturn => {
@@ -37,12 +39,18 @@ export const useAuth = (): UseAuthReturn => {
         useAuthStore.getState().clear();
     }, []);
 
+    const setUser = useCallback((u: AuthUser) => {
+        useAuthStore.getState().setUser(u);
+    }, []);
+
     return {
         user,
         accessToken,
         isAuthenticated: Boolean(accessToken),
+        isProfileComplete: user?.is_profile_exist === true,
         login,
         signup,
         logout,
+        setUser,
     };
 };
