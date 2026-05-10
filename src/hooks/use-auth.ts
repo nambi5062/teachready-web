@@ -7,7 +7,7 @@ interface UseAuthReturn {
     accessToken: string | null;
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
-    signup: (email: string, password: string) => Promise<void>;
+    signup: (name: string, email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
 }
 
@@ -20,8 +20,8 @@ export const useAuth = (): UseAuthReturn => {
         useAuthStore.getState().setSession(session);
     }, []);
 
-    const signup = useCallback(async (email: string, password: string) => {
-        const session = await signupRequest(email, password);
+    const signup = useCallback(async (name: string, email: string, password: string) => {
+        const session = await signupRequest(name, email, password);
         useAuthStore.getState().setSession(session);
     }, []);
 

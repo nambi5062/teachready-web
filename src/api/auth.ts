@@ -8,10 +8,10 @@ export const loginRequest = (email: string, password: string) =>
         skipAuth: true,
     });
 
-export const signupRequest = (email: string, password: string) =>
+export const signupRequest = (name: string, email: string, password: string) =>
     apiFetch<AuthSession>("/auth/signup", {
         method: "POST",
-        body: { email, password },
+        body: { name, email, password },
         skipAuth: true,
     });
 

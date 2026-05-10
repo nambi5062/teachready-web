@@ -16,3 +16,9 @@ export const passwordRules = {
         message: "Must include uppercase, lowercase, number, and special character (!@#$%^&*)",
     },
 };
+
+export const nameRules = {
+    required: "Name is required",
+    minLength: { value: 2, message: "Name must be at least 2 characters" },
+    maxLength: { value: 80, message: "Name must be 80 characters or fewer" },
+};

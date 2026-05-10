@@ -6,9 +6,10 @@ import { Form } from "@/components/base/form/form";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { FormInput } from "@/components/auth/form-input";
 import { useAuth } from "@/hooks/use-auth";
-import { emailRules, passwordRules } from "@/utils/validation";
+import { emailRules, nameRules, passwordRules } from "@/utils/validation";
 
 interface SignupValues {
+    name: string;
     email: string;
     password: string;
 }
@@ -22,12 +23,12 @@ export const Signup = () => {
         setError,
         formState: { isSubmitting, errors },
     } = useForm<SignupValues>({
-        defaultValues: { email: "", password: "" },
+        defaultValues: { name: "", email: "", password: "" },
     });
 
     const onSubmit = async (data: SignupValues) => {
         try {
-            await signup(data.email, data.password);
+            await signup(data.name, data.email, data.password);
             navigate("/");
         } catch (err) {
             if (err instanceof ApiError && err.status === 409) {
@@ -54,6 +55,15 @@ export const Signup = () => {
             }
         >
             <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+                <FormInput<SignupValues>
+                    control={control}
+                    name="name"
+                    rules={nameRules}
+                    type="text"
+                    label="Name"
+                    placeholder="Your full name"
+                    isRequired
+                />
                 <FormInput<SignupValues>
                     control={control}
                     name="email"
